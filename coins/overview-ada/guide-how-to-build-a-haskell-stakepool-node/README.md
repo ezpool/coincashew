@@ -3182,6 +3182,7 @@ Description=CNCLI Sync
 After=multi-user.target
 
 [Service]
+User=$USER
 Type=simple
 Restart=always
 RestartSec=5
@@ -3211,6 +3212,7 @@ Description=CNCLI Sendtip
 After=multi-user.target
 
 [Service]
+User=$USER
 Type=simple
 Restart=always
 RestartSec=5
@@ -3291,7 +3293,7 @@ cat > $NODE_HOME/crontab-fragment.txt << EOF
 # send previous and current epochs slots to pooltool
 15 22 * * * $NODE_HOME/scripts/cncli-fivedays.sh && $NODE_HOME/scripts/cncli-sendslots.sh
 EOF
-crontab -l | cat - crontab-fragment.txt >crontab.txt && crontab crontab.txt
+crontab -l | cat - $NODE_HOME/crontab-fragment.txt > $NODE_HOME/crontab.txt && crontab $NODE_HOME/crontab.txt
 rm $NODE_HOME/crontab-fragment.txt
 ```
 
@@ -3305,7 +3307,7 @@ cat > $NODE_HOME/crontab-fragment.txt << EOF
 # query ledger-state and dump to $NODE_HOME/scripts/ledger-state.json
 15 15 * * * $NODE_HOME/scripts/ledger-dump.sh
 EOF
-crontab -l | cat - crontab-fragment.txt >crontab.txt && crontab crontab.txt
+crontab -l | cat - $NODE_HOME/crontab-fragment.txt > $NODE_HOME/crontab.txt && crontab $NODE_HOME/crontab.txt
 rm $NODE_HOME/crontab-fragment.txt
 ```
 
